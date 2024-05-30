@@ -16,7 +16,13 @@ import {
     useTheme,
 } from '@mui/material';
 
-const Navbar = () => {
+const Navbar = ({
+    isSidebarOpen,
+    setIsSidebarOpen,
+}: {
+    isSidebarOpen: boolean;
+    setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
     const dispatch = useDispatch();
     const theme = useTheme();
 
@@ -32,7 +38,7 @@ const Navbar = () => {
                 {/* Left side */}
                 <FlexBetween>
                     <IconButton
-                        onClick={() => console.log('open/close sidebar')}
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     >
                         <MenuIcon />
                     </IconButton>
