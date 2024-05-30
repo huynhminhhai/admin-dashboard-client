@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Typography, useTheme } from '@mui/material';
 
 import {
     HomeOutlined,
@@ -12,11 +12,14 @@ import {
     AdminPanelSettingsOutlined,
     TrendingUpOutlined,
     PieChartOutline,
+    SettingsOutlined,
 } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { tokens } from '../theme';
 import { Sidebar as ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
+import { UserType } from '../store/utils/api';
+import FlexBetween from './FlexBetween';
 
 const navItems = [
     {
@@ -78,11 +81,13 @@ const navItems = [
 ];
 
 const Sidebar = ({
+    user,
     isNonMobile,
     drawerWidth,
     isSidebarOpen,
     setIsSidebarOpen,
 }: {
+    user: UserType;
     isNonMobile: boolean;
     drawerWidth: string;
     isSidebarOpen: boolean;
@@ -102,6 +107,7 @@ const Sidebar = ({
         <Box
             component="nav"
             height="100%"
+            position="relative"
             sx={{
                 '& .ps-sidebar-root': {
                     height: '100vh',
@@ -169,6 +175,7 @@ const Sidebar = ({
 
                         return (
                             <MenuItem
+                                key={text}
                                 className={icon === null ? 'isNotActive' : ''}
                                 disabled={icon === null}
                                 active={active === lcText}
@@ -178,12 +185,57 @@ const Sidebar = ({
                                     setActive(lcText);
                                 }}
                                 icon={icon}
+                                component={<Link to={lcText} />}
                             >
                                 <Typography>{text}</Typography>
-                                <Link to={lcText} />
                             </MenuItem>
                         );
                     })}
+
+                    <MenuItem
+                        className="isNotActive"
+                        style={{ marginTop: '12px' }}
+                    >
+                        <Divider />
+                        <FlexBetween textTransform="none" m="1.5rem 2rem 0 0">
+                            <Box display="flex" alignItems="center" gap="1rem">
+                                <Box
+                                    component="img"
+                                    alt="profile"
+                                    src="https://static.vecteezy.com/system/resources/previews/016/724/121/non_2x/pain-tendo-akatsuki-free-vector.jpg"
+                                    height="40px"
+                                    width="40px"
+                                    borderRadius="50%"
+                                    sx={{ objectFit: 'cover' }}
+                                />
+                                <Box textAlign="left">
+                                    <Typography
+                                        fontWeight="bold"
+                                        fontSize="0.9rem"
+                                        sx={{
+                                            color: colors.secondary[100],
+                                        }}
+                                    >
+                                        {user.name}
+                                    </Typography>
+                                    <Typography
+                                        fontSize="0.8rem"
+                                        sx={{
+                                            color: colors.secondary[200],
+                                        }}
+                                    >
+                                        {user.occupation}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <SettingsOutlined
+                                sx={{
+                                    color: colors.secondary[300],
+                                    fontSize: '25px',
+                                }}
+                            />
+                        </FlexBetween>
+                    </MenuItem>
                 </Menu>
             </ProSidebar>
         </Box>

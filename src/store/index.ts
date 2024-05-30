@@ -1,26 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import globalReducer from './apps/global';
+import { api } from './utils/api';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
-export interface GlobalState {
-    mode: string;
-}
-
-export interface RootState {
-    global: GlobalState;
-}
-
-const initialState: GlobalState = {
-    mode: 'dark',
-};
-
-export const globalSlice = createSlice({
-    name: 'global',
-    initialState,
-    reducers: {
-        setMode: (state) => {
-            state.mode = state.mode === 'light' ? 'dark' : 'light';
-        },
+const store = configureStore({
+    reducer: {
+        global: globalReducer,
+        [api.reducerPath]: api.reducer,
     },
+    middleware: (getDefault) => getDefault().concat(api.middleware),
 });
 
-export const { setMode } = globalSlice.actions;
-export default globalSlice.reducer;
+setupListeners(store.dispatch);
+
+export default store;

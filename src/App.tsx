@@ -1,7 +1,7 @@
 import { CssBaseline, PaletteMode, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import { RootState } from './store/apps/global';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
