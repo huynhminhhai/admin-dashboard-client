@@ -9,6 +9,11 @@ body,
   font-family: 'Lexend', sans-serif;
 }
 
+.app {
+  height: 100vh;
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

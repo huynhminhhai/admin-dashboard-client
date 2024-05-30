@@ -16,9 +16,12 @@ const Layout = () => {
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
             />
-            <Box width="100%">
-                <Navbar />
-                <Box px="1.5rem">
+            <Box width="100%" display="flex" flexDirection="column">
+                <Navbar
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
+                <Box p="0 1.5rem 1.5rem" flex="1" overflow="auto">
                     <Outlet />
                 </Box>
             </Box>

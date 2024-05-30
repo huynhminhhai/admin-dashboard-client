@@ -3,13 +3,13 @@ import {
     DarkModeOutlined,
     Search as SearchIcon,
     SettingsOutlined,
+    MenuOutlined,
 } from '@mui/icons-material';
 import FlexBetween from './FlexBetween';
 import { useDispatch } from 'react-redux';
 import { setMode } from '../store';
 import {
     AppBar,
-    Box,
     IconButton,
     InputBase,
     Toolbar,
@@ -17,7 +17,13 @@ import {
 } from '@mui/material';
 import { tokens } from '../theme';
 
-const Navbar = () => {
+const Navbar = ({
+    isSidebarOpen,
+    setIsSidebarOpen,
+}: {
+    isSidebarOpen: boolean;
+    setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
     const dispatch = useDispatch();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -34,16 +40,23 @@ const Navbar = () => {
                 sx={{ justifyContent: 'space-between', padding: '1.5rem' }}
             >
                 {/* Left side */}
-                <FlexBetween
-                    bgcolor={colors.primary[400]}
-                    borderRadius="9px"
-                    gap="3rem"
-                    p="0.1rem 1.5rem"
-                >
-                    <InputBase placeholder="Search..." />
-                    <IconButton>
-                        <SearchIcon />
+                <FlexBetween>
+                    <IconButton
+                        sx={{ marginRight: '24px' }}
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    >
+                        <MenuOutlined />
                     </IconButton>
+                    <FlexBetween
+                        bgcolor={colors.primary[400]}
+                        borderRadius="9px"
+                        p="0.1rem 1.5rem"
+                    >
+                        <InputBase placeholder="Search..." />
+                        <IconButton>
+                            <SearchIcon />
+                        </IconButton>
+                    </FlexBetween>
                 </FlexBetween>
 
                 {/* Right side */}

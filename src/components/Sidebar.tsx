@@ -1,7 +1,6 @@
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 
 import {
-    MenuOutlined,
     HomeOutlined,
     ShoppingCartOutlined,
     Groups2Outlined,
@@ -105,10 +104,17 @@ const Sidebar = ({
             height="100%"
             sx={{
                 '& .ps-sidebar-root': {
-                    height: '100%',
+                    height: '100vh',
+                },
+                '& .ps-sidebar-root.ps-collapsed': {
+                    width: isNonMobile ? '80px' : '0px',
+                    minWidth: isNonMobile ? '80px' : '0px',
                 },
                 '& .ps-sidebar-container::-webkit-scrollbar': {
                     width: '5px',
+                },
+                '& .ps-sidebar-container': {
+                    paddingBottom: '24px',
                 },
                 '& .ps-sidebar-container, & .ps-submenu-content': {
                     background: `${colors.primary[400]} !important`,
@@ -136,10 +142,9 @@ const Sidebar = ({
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
                         className="isNotActive"
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                        icon={isSidebarOpen ? <MenuOutlined /> : undefined}
+                        icon={undefined}
                         style={{
-                            margin: '10px 0 20px 0',
+                            margin: '24px 0',
                             color: colors.grey[100],
                         }}
                     >
@@ -155,13 +160,6 @@ const Sidebar = ({
                                 >
                                     ADMINIS
                                 </Typography>
-                                <IconButton
-                                    onClick={() =>
-                                        setIsSidebarOpen(!isSidebarOpen)
-                                    }
-                                >
-                                    <MenuOutlined />
-                                </IconButton>
                             </Box>
                         )}
                     </MenuItem>
