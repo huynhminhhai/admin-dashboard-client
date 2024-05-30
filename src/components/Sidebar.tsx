@@ -1,19 +1,7 @@
-import {
-    Box,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-    useTheme,
-} from '@mui/material';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
 
 import {
-    ChevronLeftOutlined,
-    ChevronRightOutlined,
+    MenuOutlined,
     HomeOutlined,
     ShoppingCartOutlined,
     Groups2Outlined,
@@ -26,10 +14,10 @@ import {
     TrendingUpOutlined,
     PieChartOutline,
 } from '@mui/icons-material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { tokens } from '../theme';
-import FlexBetween from './FlexBetween';
+import { Sidebar as ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 
 const navItems = [
     {
@@ -112,111 +100,94 @@ const Sidebar = ({
     }, [pathname]);
 
     return (
-        <Box component="nav">
-            {isSidebarOpen && (
-                <Drawer
-                    open={isSidebarOpen}
-                    onClose={() => setIsSidebarOpen(false)}
-                    variant="persistent"
-                    anchor="left"
-                    sx={{
-                        width: drawerWidth,
-                        '& .MuiDrawer-paper': {
-                            color: colors.secondary[200],
-                            backgroundColor: colors.primary[400],
-                            boxSizing: 'border-box',
-                            borderWidth: isNonMobile ? 0 : '2px',
-                            width: drawerWidth,
-                        },
-                    }}
-                >
-                    <Box width="100%">
-                        <Box m="1.5rem 16px">
-                            <FlexBetween color={theme.palette.secondary.main}>
-                                <Box
-                                    display="flex"
-                                    alignItems="center"
-                                    gap="0.5rem"
+        <Box
+            component="nav"
+            height="100%"
+            sx={{
+                '& .ps-sidebar-root': {
+                    height: '100%',
+                },
+                '& .ps-sidebar-container::-webkit-scrollbar': {
+                    width: '5px',
+                },
+                '& .ps-sidebar-container, & .ps-submenu-content': {
+                    background: `${colors.primary[400]} !important`,
+                },
+                '& .ps-menu-button:hover': {
+                    color: `${colors.secondary[900]} !important`,
+                    backgroundColor: `transparent !important`,
+                },
+                '& .ps-menuitem-root.ps-active .ps-menu-button': {
+                    color: `${colors.secondary[900]} !important`,
+                },
+                '& .ps-menuitem-root.ps-active': {
+                    backgroundColor: `${colors.secondary[500]} !important`,
+                },
+                '& .ps-menuitem-root:hover': {
+                    backgroundColor: `${colors.secondary[500]} !important`,
+                },
+                '& .ps-menuitem-root.isNotActive:hover': {
+                    backgroundColor: `transparent !important`,
+                },
+            }}
+        >
+            <ProSidebar width={drawerWidth} collapsed={isSidebarOpen}>
+                <Menu>
+                    {/* LOGO AND MENU ICON */}
+                    <MenuItem
+                        className="isNotActive"
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        icon={isSidebarOpen ? <MenuOutlined /> : undefined}
+                        style={{
+                            margin: '10px 0 20px 0',
+                            color: colors.grey[100],
+                        }}
+                    >
+                        {!isSidebarOpen && (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                            >
+                                <Typography
+                                    variant="h3"
+                                    color={colors.grey[100]}
                                 >
-                                    <Typography
-                                        variant="h4"
-                                        fontWeight="bold"
-                                        color={colors.secondary[200]}
-                                    >
-                                        ECOMVISION
-                                    </Typography>
-                                </Box>
-                                {!isNonMobile && (
-                                    <IconButton
-                                        onClick={() =>
-                                            setIsSidebarOpen(!isNonMobile)
-                                        }
-                                    >
-                                        <ChevronLeftOutlined />
-                                    </IconButton>
-                                )}
-                            </FlexBetween>
-                        </Box>
-                        <List>
-                            {navItems.map(({ text, icon }) => {
-                                if (icon === null) {
-                                    return (
-                                        <Typography
-                                            key={text}
-                                            sx={{ m: '2.25rem 0 1rem 16px' }}
-                                        >
-                                            {text}
-                                        </Typography>
-                                    );
-                                } else {
-                                    const lcText = text.toLowerCase();
+                                    ADMINIS
+                                </Typography>
+                                <IconButton
+                                    onClick={() =>
+                                        setIsSidebarOpen(!isSidebarOpen)
+                                    }
+                                >
+                                    <MenuOutlined />
+                                </IconButton>
+                            </Box>
+                        )}
+                    </MenuItem>
 
-                                    return (
-                                        <ListItem key={text} disablePadding>
-                                            <ListItemButton
-                                                onClick={() => {
-                                                    navigate(`/${lcText}`);
-                                                    setActive(lcText);
-                                                }}
-                                                sx={{
-                                                    backgroundColor:
-                                                        active === lcText
-                                                            ? colors
-                                                                  .secondary[300]
-                                                            : 'transparent',
-                                                    color:
-                                                        active === lcText
-                                                            ? colors
-                                                                  .primary[600]
-                                                            : colors
-                                                                  .secondary[200],
-                                                }}
-                                            >
-                                                <ListItemIcon
-                                                    sx={{
-                                                        color:
-                                                            active === lcText
-                                                                ? colors
-                                                                      .primary[600]
-                                                                : colors
-                                                                      .secondary[200],
-                                                    }}
-                                                >
-                                                    {icon}
-                                                </ListItemIcon>
-                                                <ListItemText primary={text} />
-                                                {active === lcText && (
-                                                    <ChevronRightOutlined />
-                                                )}
-                                            </ListItemButton>
-                                        </ListItem>
-                                    );
-                                }
-                            })}
-                        </List>
-                    </Box>
-                </Drawer>
-            )}
+                    {navItems.map(({ text, icon }) => {
+                        const lcText = text.toLowerCase();
+
+                        return (
+                            <MenuItem
+                                className={icon === null ? 'isNotActive' : ''}
+                                disabled={icon === null}
+                                active={active === lcText}
+                                style={{ color: colors.grey[100] }}
+                                onClick={() => {
+                                    navigate(`/${lcText}`);
+                                    setActive(lcText);
+                                }}
+                                icon={icon}
+                            >
+                                <Typography>{text}</Typography>
+                                <Link to={lcText} />
+                            </MenuItem>
+                        );
+                    })}
+                </Menu>
+            </ProSidebar>
         </Box>
     );
 };

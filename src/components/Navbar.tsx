@@ -1,7 +1,6 @@
 import {
     LightModeOutlined,
     DarkModeOutlined,
-    Menu as MenuIcon,
     Search as SearchIcon,
     SettingsOutlined,
 } from '@mui/icons-material';
@@ -10,21 +9,18 @@ import { useDispatch } from 'react-redux';
 import { setMode } from '../store';
 import {
     AppBar,
+    Box,
     IconButton,
     InputBase,
     Toolbar,
     useTheme,
 } from '@mui/material';
+import { tokens } from '../theme';
 
-const Navbar = ({
-    isSidebarOpen,
-    setIsSidebarOpen,
-}: {
-    isSidebarOpen: boolean;
-    setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const Navbar = () => {
     const dispatch = useDispatch();
     const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     return (
         <AppBar
@@ -34,25 +30,20 @@ const Navbar = ({
                 boxShadow: 'none',
             }}
         >
-            <Toolbar sx={{ justifyContent: 'space-between' }}>
+            <Toolbar
+                sx={{ justifyContent: 'space-between', padding: '1.5rem' }}
+            >
                 {/* Left side */}
-                <FlexBetween>
-                    <IconButton
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    >
-                        <MenuIcon />
+                <FlexBetween
+                    bgcolor={colors.primary[400]}
+                    borderRadius="9px"
+                    gap="3rem"
+                    p="0.1rem 1.5rem"
+                >
+                    <InputBase placeholder="Search..." />
+                    <IconButton>
+                        <SearchIcon />
                     </IconButton>
-                    <FlexBetween
-                        bgcolor={theme.palette.background.default}
-                        borderRadius="9px"
-                        gap="3rem"
-                        p="0.1rem 1.5rem"
-                    >
-                        <InputBase placeholder="Search..." />
-                        <IconButton>
-                            <SearchIcon />
-                        </IconButton>
-                    </FlexBetween>
                 </FlexBetween>
 
                 {/* Right side */}
