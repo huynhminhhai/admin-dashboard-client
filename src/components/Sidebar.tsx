@@ -18,8 +18,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { tokens } from '../theme';
 import { Sidebar as ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { UserType } from '../store/utils/api';
 import FlexBetween from './FlexBetween';
+import { UserType } from '../store/utils/interface';
 
 const navItems = [
     {
@@ -153,6 +153,7 @@ const Sidebar = ({
                             margin: '24px 0',
                             color: colors.grey[100],
                         }}
+                        component={<Link to={'/'} />}
                     >
                         {!isSidebarOpen && (
                             <Box
@@ -161,7 +162,7 @@ const Sidebar = ({
                                 alignItems="center"
                             >
                                 <Typography
-                                    variant="h3"
+                                    variant="h2"
                                     color={colors.grey[100]}
                                 >
                                     ADMINIS

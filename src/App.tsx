@@ -5,8 +5,7 @@ import { RootState } from './store/apps/global';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, Layout } from './scenes';
-import Products from './scenes/products';
+import { Customers, Dashboard, Layout, Products } from './scenes';
 
 function App() {
     const mode = useSelector(
@@ -28,6 +27,7 @@ function App() {
                             />
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/products" element={<Products />} />
+                            <Route path="/customers" element={<Customers />} />
                         </Route>
                     </Routes>
                 </ThemeProvider>

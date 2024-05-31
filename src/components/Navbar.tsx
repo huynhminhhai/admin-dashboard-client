@@ -22,8 +22,8 @@ import {
     MenuItem,
 } from '@mui/material';
 import { tokens } from '../theme';
-import { UserType } from '../store/utils/api';
 import { useState } from 'react';
+import { UserType } from '../store/utils/interface';
 
 const Navbar = ({
     user,

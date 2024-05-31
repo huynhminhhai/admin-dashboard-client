@@ -3,9 +3,10 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
-import { IResGetUserById, useGetUserQuery } from '../../store/utils/api';
+import { useGetUserQuery } from '../../store/utils/api';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/apps/global';
+import { IResGetUserById } from '../../store/utils/interface';
 
 const Layout = () => {
     const isNonMobile = useMediaQuery('(min-width: 600px)');

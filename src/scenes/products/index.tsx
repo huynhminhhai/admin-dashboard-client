@@ -11,14 +11,11 @@ import {
     useMediaQuery,
     CircularProgress,
 } from '@mui/material';
-import {
-    IResProducts,
-    ProductType,
-    useGetProductsQuery,
-} from '../../store/utils/api';
+import { useGetProductsQuery } from '../../store/utils/api';
 import Header from '../../components/Header';
 import { tokens } from '../../theme';
 import { useState } from 'react';
+import { IResGetProducts, ProductType } from '../../store/utils/interface';
 
 const CardProduct = ({ data }: { data: ProductType }) => {
     const theme = useTheme();
@@ -85,7 +82,7 @@ const CardProduct = ({ data }: { data: ProductType }) => {
                         Yearly Sales This Year: {state.yearlySalesTotal}
                     </Typography>
                     <Typography>
-                        Yearly Units Sold This Year:
+                        Yearly Units Sold This Year:{' '}
                         {state.yearlyTotalSoldUnits}
                     </Typography>
                 </CardContent>
@@ -97,7 +94,7 @@ const CardProduct = ({ data }: { data: ProductType }) => {
 const Products = () => {
     const isNonMobile = useMediaQuery('(min-width: 1000px)');
     const { data, isLoading } = useGetProductsQuery({ limit: 30, page: 1 }) as {
-        data: IResProducts;
+        data: IResGetProducts;
         isLoading: boolean;
     };
 
@@ -119,7 +116,7 @@ const Products = () => {
                         }}
                     >
                         {data.data.products.map((product) => (
-                            <CardProduct data={product} />
+                            <CardProduct data={product} key={product._id} />
                         ))}
                     </Box>
                 ) : (
