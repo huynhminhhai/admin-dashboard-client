@@ -10,6 +10,7 @@ export const api = createApi({
         'Transactions',
         'OverallStat',
         'Admin',
+        'Performance',
     ],
     endpoints: (build) => ({
         getUser: build.query({
@@ -60,6 +61,22 @@ export const api = createApi({
             }),
             providesTags: ['Admin'],
         }),
+        getPerformance: build.query({
+            query: ({
+                limit,
+                page,
+                id,
+            }: {
+                limit: number;
+                page: number;
+                id: string;
+            }) => ({
+                url: `management/performance/${id}`,
+                method: 'GET',
+                params: { limit, page },
+            }),
+            providesTags: ['Performance'],
+        }),
     }),
 });
 
@@ -70,4 +87,5 @@ export const {
     useGetTransactionsQuery,
     useGetOverallStatQuery,
     useGetAdminsQuery,
+    useGetPerformanceQuery,
 } = api;

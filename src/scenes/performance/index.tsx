@@ -3,71 +3,55 @@ import Header from '../../components/Header';
 import { tokens } from '../../theme';
 import { IResGetCustomers } from '../../store/utils/interface';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useGetAdminsQuery } from '../../store/utils/api';
+import { useGetPerformanceQuery } from '../../store/utils/api';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/apps/global';
 
-const Admin = () => {
+const Performance = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const { data, isLoading } = useGetAdminsQuery({
+    const userId = useSelector((state: RootState) => state.global.userId);
+    const { data, isLoading } = useGetPerformanceQuery({
         limit: 10,
         page: 1,
-    }) as { data: IResGetCustomers; isLoading: boolean };
+        id: userId,
+    }) as { data: any; isLoading: boolean };
 
     const columns: GridColDef[] = [
         {
-            field: 'name',
-            headerName: 'Name',
+            field: 'userId',
+            headerName: 'User ID',
             flex: 0.7,
             disableColumnMenu: true,
         },
         {
-            field: 'email',
-            headerName: 'Email',
+            field: 'createdAt',
+            headerName: 'Create At',
             flex: 1,
             sortable: false,
             disableColumnMenu: true,
         },
         {
-            field: 'phoneNumber',
-            headerName: 'Phone Number',
-            flex: 1,
-            renderCell: (params) => {
-                return params.value.replace(
-                    /^(\d{3})(\d{3})(\d{4})/,
-                    '($1)$2-$3'
-                );
-            },
-            sortable: false,
-            disableColumnMenu: true,
-        },
-        {
-            field: 'country',
-            headerName: 'Country',
+            field: 'products',
+            headerName: '# of Products',
             flex: 0.7,
             sortable: false,
             disableColumnMenu: true,
+            renderCell: (params) => params.value.length,
         },
         {
-            field: 'occupation',
-            headerName: 'Occupation',
+            field: 'cost',
+            headerName: 'Cost',
             flex: 1,
             sortable: false,
-            disableColumnMenu: true,
-        },
-        {
-            field: 'role',
-            headerName: 'Role',
-            flex: 1,
-            align: 'center',
-            headerAlign: 'center',
-            sortable: false,
+            renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
             disableColumnMenu: true,
         },
     ];
 
     return (
         <Box>
-            <Header title="ADMINS" subtitle="List of admins" />
+            <Header title="CUSTOMERS" subtitle="List of customer" />
             <Box
                 height="70vh"
                 sx={{
@@ -96,7 +80,7 @@ const Admin = () => {
                 <DataGrid
                     checkboxSelection
                     loading={isLoading || !data}
-                    rows={data?.data?.users || []}
+                    rows={data?.sales || []}
                     getRowId={(row) => row._id}
                     columns={columns}
                     initialState={{
@@ -109,4 +93,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default Performance;
