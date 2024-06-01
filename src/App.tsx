@@ -5,7 +5,7 @@ import { RootState } from './store/apps/global';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Customers, Dashboard, Layout, Products } from './scenes';
+import { Customers, Dashboard, Layout, Overview, Products } from './scenes';
 import Transactions from './scenes/transactions';
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
                                 path="/transactions"
                                 element={<Transactions />}
                             />
+                            <Route path="/overviews" element={<Overview />} />
                         </Route>
                     </Routes>
                 </ThemeProvider>
