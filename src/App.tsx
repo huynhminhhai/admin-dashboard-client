@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Customers, Dashboard, Layout, Products } from './scenes';
+import Transactions from './scenes/transactions';
 
 function App() {
     const mode = useSelector(
@@ -28,6 +29,10 @@ function App() {
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/products" element={<Products />} />
                             <Route path="/customers" element={<Customers />} />
+                            <Route
+                                path="/transactions"
+                                element={<Transactions />}
+                            />
                         </Route>
                     </Routes>
                 </ThemeProvider>

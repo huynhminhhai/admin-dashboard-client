@@ -68,3 +68,23 @@ export interface IResGetCustomers {
         totalPage: number;
     };
 }
+
+export interface TransactionType {
+    _id: string;
+    userId: string;
+    cost: string;
+    products: string[];
+    __v: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface IResGetTransactions {
+    message: string;
+    data: {
+        transactions: TransactionType[];
+        limit: number;
+        page: number;
+        totalPage: number;
+    };
+}

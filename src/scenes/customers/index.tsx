@@ -14,8 +14,19 @@ const Customers = () => {
     }) as { data: IResGetCustomers; isLoading: boolean };
 
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', flex: 0.7 },
-        { field: 'email', headerName: 'Email', flex: 1 },
+        {
+            field: 'name',
+            headerName: 'Name',
+            flex: 0.7,
+            disableColumnMenu: true,
+        },
+        {
+            field: 'email',
+            headerName: 'Email',
+            flex: 1,
+            sortable: false,
+            disableColumnMenu: true,
+        },
         {
             field: 'phoneNumber',
             headerName: 'Phone Number',
@@ -26,15 +37,31 @@ const Customers = () => {
                     '($1)$2-$3'
                 );
             },
+            sortable: false,
+            disableColumnMenu: true,
         },
-        { field: 'country', headerName: 'Country', flex: 0.7 },
-        { field: 'occupation', headerName: 'Occupation', flex: 1 },
+        {
+            field: 'country',
+            headerName: 'Country',
+            flex: 0.7,
+            sortable: false,
+            disableColumnMenu: true,
+        },
+        {
+            field: 'occupation',
+            headerName: 'Occupation',
+            flex: 1,
+            sortable: false,
+            disableColumnMenu: true,
+        },
         {
             field: 'role',
             headerName: 'Role',
             flex: 1,
             align: 'center',
             headerAlign: 'center',
+            sortable: false,
+            disableColumnMenu: true,
         },
     ];
 
