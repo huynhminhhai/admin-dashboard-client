@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Customers, Dashboard, Layout, Overview, Products } from './scenes';
 import Transactions from './scenes/transactions';
 import Breadown from './scenes/breakdown';
+import Admin from './scenes/admin';
 
 function App() {
     const mode = useSelector(
@@ -36,6 +37,7 @@ function App() {
                             />
                             <Route path="/overviews" element={<Overview />} />
                             <Route path="/breakdown" element={<Breadown />} />
+                            <Route path="/admin" element={<Admin />} />
                         </Route>
                     </Routes>
                 </ThemeProvider>
