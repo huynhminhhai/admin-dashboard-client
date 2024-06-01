@@ -1,10 +1,10 @@
 import { Box, CircularProgress } from '@mui/material';
 import Header from '../../components/Header';
-import OverviewChart from '../../components/OverviewChart';
 import { useGetOverallStatQuery } from '../../store/utils/api';
 import { IResGetOverallStat } from '../../store/utils/interface';
+import BreakdownChart from '../../components/BreakdownChart';
 
-const Overview = () => {
+const Breadown = () => {
     const { data, isLoading } = useGetOverallStatQuery({}) as {
         data: IResGetOverallStat;
         isLoading: boolean;
@@ -12,10 +12,13 @@ const Overview = () => {
 
     return (
         <Box>
-            <Header title="OVERALL STATE" subtitle="Overview Chart" />
+            <Header
+                title="BREAKDOWN"
+                subtitle="Breakdown of Sales by Category"
+            />
             <Box>
                 {data || !isLoading ? (
-                    <OverviewChart salesData={data?.data[0].monthlyData} />
+                    <BreakdownChart salesData={data?.data[0].salesByCategory} />
                 ) : (
                     <CircularProgress color="success" />
                 )}
@@ -24,4 +27,4 @@ const Overview = () => {
     );
 };
 
-export default Overview;
+export default Breadown;
