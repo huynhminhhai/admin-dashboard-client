@@ -9,10 +9,14 @@ type OutputObject = {
 
 const BreakdownChart = ({
     salesData,
+    height = '70vh',
+    isDashboard = false,
 }: {
     salesData: {
         [key: string]: number;
     };
+    height?: string;
+    isDashboard?: boolean;
 }) => {
     const convert = (input: { [key: string]: number }): OutputObject[] => {
         return Object.entries(input).map(([key, value], index) => ({
@@ -25,11 +29,15 @@ const BreakdownChart = ({
     const dataChart = convert(salesData);
 
     return (
-        <Box height="70vh" width="100%">
+        <Box height={height} width="100%">
             <PieChart
                 sx={{
-                    width: '100%',
-                    height: '100%',
+                    '& > g': {
+                        transform: isDashboard ? 'translate(10%, 0%)' : 'none',
+                    },
+                    '& > .MuiChartsLegend-column': {
+                        transform: 'none',
+                    },
                 }}
                 series={[
                     {
@@ -45,6 +53,18 @@ const BreakdownChart = ({
                         },
                     },
                 ]}
+                slotProps={{
+                    legend: !isDashboard
+                        ? {}
+                        : {
+                              direction: 'row',
+                              position: {
+                                  vertical: 'bottom',
+                                  horizontal: 'middle',
+                              },
+                              padding: 0,
+                          },
+                }}
             />
         </Box>
     );

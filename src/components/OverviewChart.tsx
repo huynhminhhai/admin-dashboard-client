@@ -4,12 +4,16 @@ import { LineChart } from '@mui/x-charts/LineChart';
 
 const OverviewChart = ({
     salesData,
+    height = '70vh',
+    isDashboard = false,
 }: {
     salesData: {
         month: string;
         totalSales: number;
         totalUnits: number;
     }[];
+    height?: string;
+    isDashboard?: boolean;
 }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -21,7 +25,7 @@ const OverviewChart = ({
     const xLabels = salesData.map((data) => data.month);
 
     return (
-        <Box height="70vh" width="100%">
+        <Box height={height} width="100%">
             <LineChart
                 sx={{
                     width: '100%',

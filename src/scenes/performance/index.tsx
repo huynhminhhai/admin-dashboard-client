@@ -1,7 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 import Header from '../../components/Header';
 import { tokens } from '../../theme';
-import { IResGetCustomers } from '../../store/utils/interface';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useGetPerformanceQuery } from '../../store/utils/api';
 import { useSelector } from 'react-redux';

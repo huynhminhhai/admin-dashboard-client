@@ -11,6 +11,7 @@ export const api = createApi({
         'OverallStat',
         'Admin',
         'Performance',
+        'Dashboard',
     ],
     endpoints: (build) => ({
         getUser: build.query({
@@ -77,6 +78,22 @@ export const api = createApi({
             }),
             providesTags: ['Performance'],
         }),
+        getDashboard: build.query({
+            query: ({
+                currentYear,
+                currentMonth,
+                currentDay,
+            }: {
+                currentYear: number;
+                currentMonth: string;
+                currentDay: string;
+            }) => ({
+                url: `general/dashboard`,
+                method: 'POST',
+                body: { currentYear, currentMonth, currentDay },
+            }),
+            providesTags: ['Dashboard'],
+        }),
     }),
 });
 
@@ -88,4 +105,5 @@ export const {
     useGetOverallStatQuery,
     useGetAdminsQuery,
     useGetPerformanceQuery,
+    useGetDashboardQuery,
 } = api;

@@ -123,3 +123,40 @@ export interface TotalLineType {
     color: string;
     data: { x: string; y: number }[];
 }
+
+export interface DashboardStatType {
+    totalCustomers: number;
+    yearlySalesTotal: number;
+    yearlyTotalSoldUnits: number;
+    monthlyData: {
+        month: string;
+        totalSales: number;
+        totalUnits: number;
+        _id: string;
+    }[];
+    dailyData: {
+        date: string;
+        totalSales: number;
+        totalUnits: number;
+        _id: string;
+    }[];
+    thisMonthStat: {
+        month: string;
+        totalSales: number;
+        totalUnits: number;
+        _id: string;
+    };
+    salesByCategory: { [key: string]: number };
+    todayStat: {
+        date: string;
+        totalSales: number;
+        totalUnits: number;
+        _id: string;
+    };
+    transactions: TransactionType[];
+}
+
+export interface IResGetDashboardState {
+    message: string;
+    data: DashboardStatType;
+}
